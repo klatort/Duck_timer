@@ -36,9 +36,11 @@ if __name__ == "__main__":
     parser.add_argument('-o', '--output', required=False, help='Output image file')
 
     args = parser.parse_args()
-
+    base_name = os.path.splitext(args.input)[0]
+    
     if args.output is None:
-        base_name = os.path.splitext(args.input)[0]
         args.output = f"{base_name}-frames.png"
+    else:
+        args.output = f"{args.output}/{os.path.basename(base_name)}-frames.png"
     
     extract_frames(args.input, args.output)
