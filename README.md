@@ -3,7 +3,7 @@
 - You can also implement your own ducks with the divide_gif.py file since it strips any .gif file into a framesheet, it uses an input and an optional output argument.
 
     python divide_gif.py -i duck.gif
-     #This will output duck-frames.png file in the same directory
+     //This will output duck-frames.png file in the same directory
 
 # TODO
 - Make user time input more user friendly.
