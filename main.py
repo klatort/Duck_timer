@@ -3,7 +3,6 @@ import datetime
 import librosa
 import os
 import random
-import pyglet
 
 class Duck:
     def __init__(self, x, y, sprite_sheet, sprite_width, sprite_height, invisible=True, can_move=True):
@@ -74,7 +73,7 @@ class Game:
         self.start_ticks = pygame.time.get_ticks()
         self.target_time = datetime.datetime.combine(datetime.date.today(), target_time)
         self.timeup_sound = pygame.mixer.Sound('./sounds/timeup.mp3')
-        self.timeup_loop = pyglet.media.load('./sounds/timeup-loop.mp3')        
+        self.timeup_loop = pygame.mixer.Sound('./sounds/timeup-loop.mp3')        
         self.sound_channel = pygame.mixer.Channel(0)  # Create a new channel
         pygame.mixer.music.load(self.music)
         pygame.mixer.music.play(-1)
@@ -132,5 +131,5 @@ class Game:
         pygame.quit()
 
 # Usage
-game = Game(datetime.time(3, 50))
+game = Game(datetime.time(18, 51))
 game.run()
