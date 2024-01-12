@@ -17,6 +17,7 @@ class Duck:
         self.sprite_height = sprite_height
         self.sprite_sheet = image.load(self.sprite_sheet)
         self.sprite_rect = Rect(0, 0, self.sprite_width, self.sprite_height)
+        self.animation_time = 0
         self.current_frame = 0
         self.invisible = invisible
         self.can_move = can_move
@@ -41,6 +42,12 @@ class Duck:
             self.x += self.direction_x * self.speed_x
             self.y += self.direction_y * self.speed_y
     
-    def animate(self):
-        self.current_frame = (self.current_frame + 1) % (self.sprite_sheet.get_width() // self.sprite_width)
-        self.sprite_rect.x = self.current_frame * self.sprite_width
+    def animate(self, time_elapsed, animation_speed):
+        animation_speed = animation_speed / 6000
+        if animation_speed < 0.04:
+            animation_speed *= 2
+        self.animation_time += time_elapsed
+        if self.animation_time > animation_speed:
+            self.animation_time = 0
+            self.current_frame = (self.current_frame + 1) % (self.sprite_sheet.get_width() // self.sprite_width)
+            self.sprite_rect.x = self.current_frame * self.sprite_width

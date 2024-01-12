@@ -22,7 +22,7 @@ class GameManager:
             Duck(960, 300, "./assets/sprites/dancing-duckdancing-frames.png", 164, 200),
             Duck(860, 700, "./assets/sprites/dancing-duckdancing-frames.png", 164, 200),
             Duck(360, 900, "./assets/sprites/dancing-duckdancing-frames.png", 164, 200),
-            Duck(800, 1200, "./assets/sprites/dancing-duckdancing-frames.png", 164, 200),
+            Duck(800, 1600, "./assets/sprites/dancing-duckdancing-frames.png", 164, 200),
             ]
         self.animation_speed = self.estimate_bpm(self.music)
         self.font_name = "./assets/font.ttf"
@@ -30,7 +30,6 @@ class GameManager:
         self.screen = pygame.display.set_mode((self.width, self.height), pygame.NOFRAME)
         self.font = pygame.font.Font(self.font_name, self.font_size)
         self.clock = pygame.time.Clock()
-        self.animation_time = 0
         self.start_ticks = pygame.time.get_ticks()
         self.target_time = datetime.datetime.combine(datetime.date.today(), datetime.time(hours, minutes, seconds))
         self.timeup_sound = pygame.mixer.Sound('./sounds/timeup.mp3')      
@@ -43,7 +42,7 @@ class GameManager:
     def estimate_bpm(self, filename):
         y, sr = librosa.load(filename)
         tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
-        return tempo/6000
+        return tempo
 
     def run(self):
         running = True
@@ -52,11 +51,8 @@ class GameManager:
                 if event.type == pygame.QUIT:
                     running = False
 
-            self.animation_time += self.clock.get_time() / 1000
-            if self.animation_time > self.animation_speed:
-                self.animation_time = 0
-                for ducks in self.ducks:
-                    ducks.animate()
+            for ducks in self.ducks:
+                ducks.animate(self.clock.get_time() / 1000, self.animation_speed)
             # Move ducks
             for duck in self.ducks:
                 duck.move(self.width, self.height)
