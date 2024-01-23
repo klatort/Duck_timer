@@ -56,6 +56,6 @@ if __name__ == "__main__":
     if args.output is None:
         args.output = f"./assets/sprites/{base_name}-frames.png"
     else:
-        args.output = f"{args.output}/{os.path.basename(base_name)}-frames.png"
+        args.output = f"./assets/sprites/{args.output}.png"
     
     extract_frames(args.input, args.output)
