@@ -1,0 +1,8 @@
+{
+  "sprite_sheet": "./assets/sprites/toothless.png",
+  "x": 1000,
+  "y": 0,
+  "invisible": false,
+  "can_move": false,
+  "frames": 246
+}

@@ -1,0 +1,8 @@
+{
+  "sprite_sheet": "./assets/sprites/bird-dance-frames.png",
+  "x": -150,
+  "y": 0,
+  "invisible": false,
+  "can_move": false,
+  "frames": 12
+}

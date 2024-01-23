@@ -1,6 +1,7 @@
 import argparse
 from PIL import Image
 import os
+import json
 
 def extract_frames(gif_path, output_path):
     im = Image.open(gif_path)
@@ -30,6 +31,20 @@ def extract_frames(gif_path, output_path):
     # Save the output image
     new_im.save(output_path)
 
+    # Create JSON file
+    sprite_filename = os.path.basename(output_path)
+    json_data = {
+        "sprite_sheet": output_path,
+        "x": 0,
+        "y": 0,
+        "invisible": False,
+        "can_move": False,
+        "frames": len(frames)
+    }
+    json_output_path = os.path.join("./ducks", f"{os.path.splitext(sprite_filename)[0]}.json")
+    with open(json_output_path, 'w') as json_file:
+        json.dump(json_data, json_file)
+    
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Extract frames from a GIF and save them into a big image.')
     parser.add_argument('-i', '--input', required=True, help='Input GIF file')
@@ -39,7 +54,7 @@ if __name__ == "__main__":
     base_name = os.path.splitext(args.input)[0]
     
     if args.output is None:
-        args.output = f"{base_name}-frames.png"
+        args.output = f"./assets/sprites/{base_name}-frames.png"
     else:
         args.output = f"{args.output}/{os.path.basename(base_name)}-frames.png"
     

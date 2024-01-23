@@ -1,0 +1,8 @@
+{
+  "sprite_sheet": "./assets/sprites/dancing-duckdancing-frames.png",
+  "x": 360,
+  "y": 900,
+  "invisible": true,
+  "can_move": true,
+  "frames": 111
+}
