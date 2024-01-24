@@ -1,4 +1,5 @@
 import json
+import os
 from pygame import Rect, image
 from random import randint, choice
 
@@ -58,10 +59,9 @@ class Duck:
             animation_speed = 0.026
         else:
             animation_speed = animation_speed / 6000
-            if animation_speed < 0.03:
+            if animation_speed < 0.02:
                 animation_speed *= 2
-        if self.is_toothless:
-            print(animation_speed)
+                
         self.animation_time += time_elapsed
 
         if self.animation_time > animation_speed:
@@ -78,11 +78,11 @@ class Duck:
                 print(f'Error: {json_file} is not a valid JSON file')
                 return
         is_toothless = False
-        if json_file == './ducks/toothless.json':
+        if os.path.basename(json_file) == 'toothless.json':
             is_toothless = True
         x = data.get('x')
         y = data.get('y')
-        sprite_sheet = data.get('sprite_sheet')
+        sprite_sheet = os.path.join(os.path.dirname(os.path.dirname(json_file)), data.get('sprite_sheet'))
         invisible = data.get('invisible', True)
         can_move = data.get('can_move', True)
         frames = data.get('frames')

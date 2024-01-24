@@ -1,5 +1,5 @@
 {
-  "sprite_sheet": "./assets/sprites/dancing-duckdancing-frames.png",
+  "sprite_sheet": "assets\\sprites\\dancing-duckdancing-frames.png",
   "x": 1400,
   "y": 850,
   "invisible": true,
