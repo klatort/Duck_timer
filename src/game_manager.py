@@ -25,14 +25,14 @@ class GameManager:
         #       outputs a JSON file in the ducks folder
         #       have in mind the way that this loads the ducks
         #       so you know which is the duck to be rendered on top
-        self.ducks = [Duck.from_json(os.path.join(self.assets_path, f"./ducks/{duck_file}")) for duck_file in os.listdir(os.path.join(self.assets_path,"./ducks")) if duck_file.endswith('.json')]
+        self.ducks = [Duck.from_json(os.path.join(self.assets_path, f"./ducks/{duck_file}"), [self.width, self.height]) for duck_file in os.listdir(os.path.join(self.assets_path,"./ducks")) if duck_file.endswith('.json')]
         
         # Estimate animation speed based on music tempo
         self.animation_speed = self.estimate_bpm(self.music)
         
         # Set font properties
         self.font_name = os.path.join(self.assets_path, "./assets/font.ttf")
-        self.font_size = 250
+        self.font_size = int(self.height * 0.2)
         
         # Create screen and font objects
         self.screen = pygame.display.set_mode((self.width, self.height), pygame.NOFRAME)
@@ -120,13 +120,13 @@ class GameManager:
                 duck.draw(self.screen)
                 
             # Draw timer text
-            self.screen.blit(timer_text, (self.width / 2 - 150 if hours <= 0 else 200, self.height / 2 - 125))
+            self.screen.blit(timer_text, (self.width * 0.5 - ((0.75 if hours <= 0 else 2) * self.font_size), self.height * 0.5 - self.font_size * 0.625))
             
             # Draw FPS
             if show_fps:
-                small_font = pygame.font.Font(None, 40)  # Change the font size here
+                small_font = pygame.font.Font(None, int(self.height * 0.04))
                 fps_text = small_font.render(f"{int(self.clock.get_fps()):02}", True, (255, 0, 0))
-                self.screen.blit(fps_text, (self.width - 40, 0))
+                self.screen.blit(fps_text, (self.width - (self.height * 0.037), 0))
 
             pygame.display.flip()
             self.clock.tick(30)

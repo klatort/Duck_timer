@@ -1,6 +1,6 @@
 import json
 import os
-from pygame import Rect, image
+from pygame import Rect, image, transform
 from random import randint, choice
 
 class Duck:
@@ -70,7 +70,7 @@ class Duck:
             self.sprite_rect.x = self.current_frame * self.sprite_width
 
     @classmethod
-    def from_json(cls, json_file):
+    def from_json(cls, json_file, proportions):
         with open(json_file, 'r') as file:
             try:
                 data = json.load(file)
@@ -80,8 +80,8 @@ class Duck:
         is_toothless = False
         if os.path.basename(json_file) == 'toothless.json':
             is_toothless = True
-        x = data.get('x')
-        y = data.get('y')
+        x = data.get('x') * proportions[0]/1920
+        y = data.get('y') * proportions[1]/1080
         sprite_sheet = os.path.join(os.path.dirname(os.path.dirname(json_file)), data.get('sprite_sheet'))
         invisible = data.get('invisible', True)
         can_move = data.get('can_move', True)
@@ -91,6 +91,9 @@ class Duck:
             raise ValueError("The JSON file must contain 'x', 'y', 'sprite_sheet', and 'frames' values.")
 
         sprite_sheet = image.load(sprite_sheet)
+        scaled_width = int(sprite_sheet.get_width() * proportions[0]/1920)
+        scaled_height = int(sprite_sheet.get_height() * proportions[1]/1080)
+        sprite_sheet = transform.scale(sprite_sheet, (scaled_width, scaled_height))
         sprite_width = sprite_sheet.get_width() / frames
         sprite_height = sprite_sheet.get_height()
 
