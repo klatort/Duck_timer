@@ -6,7 +6,7 @@
   
 - Note that the way you declare new ducks is by placing a new file in the ducks folder, please use the .json format so you don't have problems.
   
-```python
+```bash
 #From the main directory
 python ./assets/create_from_gif.py -i duck.gif -o my_duck
 #This will output my_duck.png file in the assets/sprites directory and my_duck.json into the ducks folder
@@ -14,7 +14,7 @@ python ./assets/create_from_gif.py -i duck.gif -o my_duck
 
 # How to start the duck timer
 - If you want to start the program, you first need to install the dependencies in the requierements.txt file, preferably use a virtual enviroment. Then you will have to run the main.py file parsing the arguments as an specific hour and optionally minutes and even seconds.
-```python
+```bash
 pip install -r requirements.txt
 #From the main directory
 python main.py 14 -m 15
@@ -33,7 +33,7 @@ This command tells PyInstaller to bundle the main.py script into an executable a
 If you're using Windows, you might want to add the directory containing the bundled application to your PATH environment variable, or move the bundled application to a directory that's already in your PATH. Here's how you can add a directory to your PATH:
 
 ```cmd
-REM Replace /path/to/dtimer with the actual path to the dtimer directory
+Replace /path/to/dtimer with the actual path to the dtimer directory
 set PATH=/path/to/dtimer;%PATH%
 ```
 
