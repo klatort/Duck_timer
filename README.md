@@ -33,7 +33,7 @@ This command tells PyInstaller to bundle the main.py script into an executable a
 If you're using Windows, you might want to add the directory containing the bundled application to your PATH environment variable, or move the bundled application to a directory that's already in your PATH. Here's how you can add a directory to your PATH:
 
 ```cmd
-Replace /path/to/dtimer with the actual path to the dtimer directory
+REM Replace /path/to/dtimer with the actual path to the dtimer directory
 set PATH=/path/to/dtimer;%PATH%
 ```
 
