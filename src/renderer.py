@@ -2,7 +2,7 @@ import pygame
 import os
 
 class Renderer:
-    def __init__(self, width, height, assets_path, animation_speed):
+    def __init__(self, width, height, assets_path):
         self.width = width
         self.height = height
         self.timer_text = ""
@@ -11,25 +11,18 @@ class Renderer:
         # Set font properties
         self.font_name = os.path.join(assets_path, "./assets/font.ttf")
         self.font_size = int(self.height * 0.2)
-        
+          
         # Create screen and font objects
         self.screen = pygame.display.set_mode((self.width, self.height), pygame.NOFRAME)
         self.font = pygame.font.Font(self.font_name, self.font_size)
         self.small_font = pygame.font.Font(None, int(self.height * 0.04))
-        
-        # Estimate animation speed based on music tempo
-        self.animation_speed = animation_speed
+
         pygame.display.set_caption("Duck Timer!")
     
-    def render(self, ducks, timeleft, show_fps, music):
+    def render(self, ducks, timeleft, show_fps):
         self.screen.fill((95, 188, 99))
         for duck in ducks:
-            if not duck.invisible:
-                if os.path.basename(music) == "driftveil_city.mp3" and duck.is_toothless:
-                    duck.animate(self.clock.get_time() / 1000)
-                else:
-                    duck.animate(self.clock.get_time() / 1000, self.animation_speed)
-                self.screen.blit(duck.surface, (duck.x, duck.y))
+            self.screen.blit(duck.draw(), (duck.x, duck.y))
          
         if timeleft['hours'] > 0:
             self.timer_text = f"{timeleft['hours']:02}:{timeleft['minutes']:02}:{timeleft['seconds']:02}"
@@ -48,5 +41,4 @@ class Renderer:
 
         # Update only the dirty rects
         pygame.display.flip()
-        self.clock.tick(144)
-    
+        self.clock.tick()

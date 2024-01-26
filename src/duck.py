@@ -28,13 +28,8 @@ class Duck:
         self.direction_y = choice([-1, 1])
 
         # Generate random speed
-        self.speed_x = randint(5, 15)
-        self.speed_y = randint(5, 15)
-        
-        self.surface = self.draw()
-        
-    def get_rect(self):
-        return Rect(self.x, self.y, self.sprite_width, self.sprite_height)
+        self.speed_x = randint(2, 8)
+        self.speed_y = randint(2, 8)
     
     def draw(self):
         return self.sprite_sheet.subsurface(self.sprite_rect)
@@ -71,7 +66,6 @@ class Duck:
             self.animation_time = 0
             self.current_frame = (self.current_frame + 1) % (self.sprite_sheet.get_width() // self.sprite_width)
             self.sprite_rect.x = self.current_frame * self.sprite_width
-            self.surface = self.draw()
 
     @classmethod
     def from_json(cls, json_file, proportions):
