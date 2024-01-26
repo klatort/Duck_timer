@@ -10,7 +10,7 @@ class Duck:
         self.sprite_height = sprite_height
 
         if isinstance(sprite_sheet, str):
-            self.sprite_sheet = image.load(self.sprite_sheet)
+            self.sprite_sheet = image.load(self.sprite_sheet).convert_alpha()
         else:
             self.sprite_sheet = sprite_sheet
 
@@ -30,11 +30,14 @@ class Duck:
         # Generate random speed
         self.speed_x = randint(5, 15)
         self.speed_y = randint(5, 15)
-
-    def draw(self, screen):
-        if not self.invisible:
-            frame_surface = self.sprite_sheet.subsurface(self.sprite_rect)
-            screen.blit(frame_surface, (self.x, self.y))
+        
+        self.surface = self.draw()
+        
+    def get_rect(self):
+        return Rect(self.x, self.y, self.sprite_width, self.sprite_height)
+    
+    def draw(self):
+        return self.sprite_sheet.subsurface(self.sprite_rect)
         
     def move(self, width, height):
         if self.can_move:
@@ -68,6 +71,7 @@ class Duck:
             self.animation_time = 0
             self.current_frame = (self.current_frame + 1) % (self.sprite_sheet.get_width() // self.sprite_width)
             self.sprite_rect.x = self.current_frame * self.sprite_width
+            self.surface = self.draw()
 
     @classmethod
     def from_json(cls, json_file, proportions):
@@ -90,7 +94,7 @@ class Duck:
         if None in [x, y, sprite_sheet, frames]:
             raise ValueError("The JSON file must contain 'x', 'y', 'sprite_sheet', and 'frames' values.")
 
-        sprite_sheet = image.load(sprite_sheet)
+        sprite_sheet = image.load(sprite_sheet).convert_alpha()
         scaled_width = int(sprite_sheet.get_width() * proportions[0]/1920)
         scaled_height = int(sprite_sheet.get_height() * proportions[1]/1080)
         sprite_sheet = transform.scale(sprite_sheet, (scaled_width, scaled_height))
