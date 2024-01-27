@@ -60,6 +60,8 @@ class GameManager:
         self.show_fps = False
         self.running = True
         
+        pygame.display.set_icon(pygame.image.load(os.path.join(self.assets_path, "./assets/duck.ico")))
+        
         self.running_event = threading.Event()
         self.running_event.set()
 

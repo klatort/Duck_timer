@@ -22,6 +22,8 @@ class Renderer:
     def render(self, ducks, timeleft, show_fps):
         self.screen.fill((95, 188, 99))
         for duck in ducks:
+            if duck.invisible:
+                continue
             self.screen.blit(duck.draw(), (duck.x, duck.y))
          
         if timeleft['hours'] > 0:
