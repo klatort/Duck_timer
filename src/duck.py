@@ -4,7 +4,7 @@ from pygame import Rect, image, transform
 from random import randint, choice
 
 class Duck:
-    def __init__(self, x, y, sprite_sheet, sprite_width, sprite_height, invisible, can_move, is_toothless):
+    def __init__(self, x, y, sprite_sheet, sprite_width, sprite_height, visible, can_move, is_toothless):
         self.sprite_sheet = sprite_sheet
         self.sprite_width = sprite_width
         self.sprite_height = sprite_height
@@ -17,7 +17,7 @@ class Duck:
         self.sprite_rect = Rect(0, 0, self.sprite_width, self.sprite_height)
         self.animation_time = 0
         self.current_frame = 0
-        self.invisible = invisible
+        self.visible = visible
         self.can_move = can_move
         self.is_toothless = is_toothless
         self.x = x
@@ -81,7 +81,7 @@ class Duck:
         x = data.get('x') * proportions[0]/1920
         y = data.get('y') * proportions[1]/1080
         sprite_sheet = os.path.join(os.path.dirname(os.path.dirname(json_file)), data.get('sprite_sheet'))
-        invisible = data.get('invisible', True)
+        visible = data.get('visible', True)
         can_move = data.get('can_move', True)
         frames = data.get('frames')
 
@@ -95,4 +95,4 @@ class Duck:
         sprite_width = sprite_sheet.get_width() / frames
         sprite_height = sprite_sheet.get_height()
 
-        return cls(x, y, sprite_sheet, sprite_width, sprite_height, invisible, can_move, is_toothless)
+        return cls(x, y, sprite_sheet, sprite_width, sprite_height, visible, can_move, is_toothless)

@@ -37,7 +37,7 @@ def extract_frames(gif_path, output_path):
         "sprite_sheet": output_path,
         "x": 0,
         "y": 0,
-        "invisible": False,
+        "visible": False,
         "can_move": False,
         "frames": len(frames)
     }

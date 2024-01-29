@@ -77,6 +77,7 @@ class GameManager:
     def run(self):
         try:
             renderer_thread = threading.Thread(target=self.run_renderer, args=())
+            renderer_thread.daemon = True
             renderer_thread.start()
         
             while self.running:
@@ -90,7 +91,7 @@ class GameManager:
 
                 # Move ducks
                 for duck in self.ducks:
-                    if not duck.invisible:
+                    if not duck.visible:
                         if os.path.basename(self.music) == "driftveil_city.mp3" and duck.is_toothless:
                             duck.animate(self.clock.get_time() / 1000)
                         else:
@@ -113,7 +114,7 @@ class GameManager:
 
                         # Make ducks visible again
                         for duck in self.ducks:
-                            duck.invisible = False
+                            duck.visible = False
                         self.time_left['minutes'] = 0
                         self.time_left['seconds'] = 0
                 self.clock.tick(60)

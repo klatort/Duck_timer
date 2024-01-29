@@ -2,7 +2,7 @@
   "sprite_sheet": "assets\\sprites\\toothless.png",
   "x": 1000,
   "y": 0,
-  "invisible": true,
+  "visible": true,
   "can_move": false,
   "frames": 246
 }
